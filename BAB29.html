@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB29</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB1</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Kosakata</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 15px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .wrong { color: red; }
+  .correct { color: green; }
+  ol { text-align:left; max-height:400px; overflow:auto; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+  <br>
+  <button id="nextBtn">Selanjutnya</button>
+</div>
+
+<script>
+let questions = [
+{ soal: "한국의 예절", jawaban: "tata krama korea" },
+{ soal: "침을 뱉다", jawaban: "meludah" },
+{ soal: "-(으)ㄹ 수 있다", jawaban: "bisa" },
+{ soal: "코를 풀다", jawaban: "mengeluarkan ingus" },
+{ soal: "-(으)ㄹ 수 없다", jawaban: "tidak bisa" },
+{ soal: "-(으)면 안 되다", jawaban: "tidak boleh" },
+{ soal: "행동", jawaban: "tindakan" },
+{ soal: "흡연", jawaban: "area merokok" },
+{ soal: "공공장소", jawaban: "tempat umum" },
+{ soal: "흔들다", jawaban: "menggoyangkan" },
+{ soal: "금지", jawaban: "dilarang" },
+{ soal: "주차금지 구역", jawaban: "area dilarang parkir" },
+{ soal: "금연", jawaban: "dilarang merokok" },
+{ soal: "음식물을 반입하다", jawaban: "memasukkan barang makanan" },
+{ soal: "길", jawaban: "jalan" },
+{ soal: "신호를 위반하다", jawaban: "melanggar rambu lalu lintas" },
+{ soal: "구역", jawaban: "area" },
+{ soal: "전시품을 만지다", jawaban: "menyentuh benda pameran" },
+{ soal: "다리를 꼬다", jawaban: "duduk menyilangkan kaki" },
+{ soal: "담배를 피우다", jawaban: "merokok" },
+{ soal: "담배 꽁초", jawaban: "putung rokok" },
+{ soal: "숲만", jawaban: "hutan" },
+{ soal: "밥물", jawaban: "memasak nasi" },
+{ soal: "뛰어다니다", jawaban: "berlari" },
+{ soal: "앞마당", jawaban: "halaman depan" },
+{ soal: "도서관", jawaban: "perpustakaan" },
+{ soal: "밥맛", jawaban: "mencicipi" },
+{ soal: "만지다", jawaban: "menyentuh" },
+{ soal: "앞머리", jawaban: "poni" },
+{ soal: "떠들다", jawaban: "gaduh" },
+{ soal: "밖에", jawaban: "di luar" },
+{ soal: "먼저", jawaban: "lebih dulu" },
+{ soal: "이름을 부르다", jawaban: "memanggil nama" },
+{ soal: "반입하다", jawaban: "membawa masuk" },
+{ soal: "밥그릇을 들고 먹다", jawaban: "makan dengan mengangkat mangkuk" },
+{ soal: "반말 하다", jawaban: "bahasa informal" },
+{ soal: "수저를 같이 들다", jawaban: "mengangkat sendok & sumpit bersamaan" },
+{ soal: "박물관", jawaban: "museum" },
+{ soal: "한손으로 물건을 주다", jawaban: "memberi barang dengan satu tangan" },
+{ soal: "밥그릇", jawaban: "mangkuk nasi" },
+{ soal: "음악", jawaban: "musik" },
+{ soal: "무단 횡단하다", jawaban: "menyebrang sembarangan" },
+{ soal: "정말", jawaban: "sungguh-sungguh" },
+{ soal: "새치기 하다", jawaban: "menyerobot antrian" },
+{ soal: "수저", jawaban: "sendok & sumpit" },
+{ soal: "서로 조화롭게", jawaban: "saling harmonis" },
+{ soal: "소리를 내다", jawaban: "bersuara keras" },
+{ soal: "대중교통", jawaban: "transportasi umum" },
+{ soal: "실수 하다", jawaban: "kesalahan" },
+{ soal: "약자", jawaban: "orang lemah" },
+{ soal: "앉아", jawaban: "duduk" },
+{ soal: "피해를 주다", jawaban: "merugikan" },
+{ soal: "어른", jawaban: "orang tua" },
+{ soal: "냄새", jawaban: "bau" },
+{ soal: "예매하다", jawaban: "memesan (tiket)" },
+{ soal: "신경 쓰다", jawaban: "memperhatikan / mengamati" },
+{ soal: "인사하다", jawaban: "salam" },
+{ soal: "집안", jawaban: "dalam rumah" },
+{ soal: "예의에 어긋나다", jawaban: "melanggar tata krama / tidak sopan" },
+{ soal: "자리", jawaban: "tempat duduk" },
+{ soal: "잠깐", jawaban: "sebentar" },
+{ soal: "임산부", jawaban: "ibu hamil" },
+{ soal: "주차하다", jawaban: "memarkir" },
+{ soal: "공공 시설", jawaban: "fasilitas umum" },
+{ soal: "지키다", jawaban: "menepati" },
+{ soal: "미술관", jawaban: "galeri seni" },
+];
+
+// Acak soal
+questions = questions.sort(() => Math.random() - 0.5);
+
+let index = 0;
+let score = 0;
+let userAnswers = [];
+
+const questionEl = document.getElementById("question");
+const answerInput = document.getElementById("answerInput");
+const nextBtn = document.getElementById("nextBtn");
+const card = document.querySelector(".card");
+
+function showQuestion() {
+  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  answerInput.value = "";
+  answerInput.focus();
+}
+
+nextBtn.addEventListener("click", () => {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+
+  if (userAnswer === questions[index].jawaban) {
+    score++;
+  }
+
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  let answerList = "";
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === q.jawaban) {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
+    } else {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
+                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+    }
+  });
+
+  card.innerHTML = `
+    <h2>Hasil</h2>
+    <p class="result">Nilai: ${score} / ${questions.length}</p>
+    <hr>
+    <p>Kunci Jawaban:</p>
+    <ol>${answerList}</ol>
+  `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
